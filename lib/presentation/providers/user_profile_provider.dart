@@ -77,6 +77,7 @@ class UserProfile {
   final Branch? selectedBranch;
   final Map<String, SubjectStats> subjectStats;
   final List<String> solvedQuestionIds;
+  final List<String> wrongQuestionIds;
 
   const UserProfile({
     this.name = 'Kullanıcı',
@@ -84,6 +85,7 @@ class UserProfile {
     this.selectedBranch,
     this.subjectStats = const {},
     this.solvedQuestionIds = const [],
+    this.wrongQuestionIds = const [],
   });
 
   UserProfile copyWith({
@@ -92,6 +94,7 @@ class UserProfile {
     Branch? selectedBranch,
     Map<String, SubjectStats>? subjectStats,
     List<String>? solvedQuestionIds,
+    List<String>? wrongQuestionIds,
   }) {
     return UserProfile(
       name: name ?? this.name,
@@ -99,6 +102,7 @@ class UserProfile {
       selectedBranch: selectedBranch ?? this.selectedBranch,
       subjectStats: subjectStats ?? this.subjectStats,
       solvedQuestionIds: solvedQuestionIds ?? this.solvedQuestionIds,
+      wrongQuestionIds: wrongQuestionIds ?? this.wrongQuestionIds,
     );
   }
 
@@ -241,6 +245,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
   static const _keyNickname = 'user_nickname';
   static const _keyStats = 'subject_stats';
   static const _keySolvedQuestions = 'solved_question_ids';
+  static const _keyWrongQuestions = 'wrong_question_ids';
 
   Future<void> _loadProfile() async {
     final prefs = await SharedPreferences.getInstance();
@@ -248,6 +253,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
     final name = prefs.getString(_keyName) ?? 'Kullanıcı';
     final nickname = prefs.getString(_keyNickname);
     final solvedQuestions = prefs.getStringList(_keySolvedQuestions) ?? [];
+    final wrongQuestions = prefs.getStringList(_keyWrongQuestions) ?? [];
 
     // Load stats
     Map<String, SubjectStats> stats = {};
@@ -277,6 +283,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
       selectedBranch: branchIndex != null ? Branch.values[branchIndex] : null,
       subjectStats: stats,
       solvedQuestionIds: solvedQuestions,
+      wrongQuestionIds: wrongQuestions,
     );
 
     // Initial sync from Firestore if logged in
@@ -310,6 +317,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
     );
     await prefs.setString(_keyStats, jsonString);
     await prefs.setStringList(_keySolvedQuestions, state.solvedQuestionIds);
+    await prefs.setStringList(_keyWrongQuestions, state.wrongQuestionIds);
   }
 
   Future<void> selectBranch(Branch branch) async {
@@ -353,9 +361,19 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
       updatedSolved.add(questionId);
     }
 
+    final updatedWrong = List<String>.from(state.wrongQuestionIds);
+    if (!isCorrect &&
+        questionId != null &&
+        !updatedWrong.contains(questionId)) {
+      updatedWrong.add(questionId);
+    } else if (isCorrect && questionId != null) {
+      updatedWrong.remove(questionId);
+    }
+
     state = state.copyWith(
       subjectStats: updatedStats,
       solvedQuestionIds: updatedSolved,
+      wrongQuestionIds: updatedWrong,
     );
     _saveStats(updatedStats);
     _syncToFirestore();
@@ -383,6 +401,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
           (sum, s) => sum + s.correctAnswers,
         ),
         'solved_question_ids': state.solvedQuestionIds,
+        'wrong_question_ids': state.wrongQuestionIds,
       };
 
       await _leaderboardRepo.updateUserStats(user.uid, payload);
@@ -405,14 +424,21 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
     };
   }
 
-  /// Clear user statistics but keep profile info
+  /// Clear user statistics and solved question IDs but keep profile info
   Future<void> clearData() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_keyStats);
+    await prefs.remove(_keySolvedQuestions);
+    await prefs.remove(_keyWrongQuestions);
 
     // Reset stats in state
     final emptyStats = _generateMockStats(state.selectedBranch);
-    state = state.copyWith(subjectStats: emptyStats);
+    state = state.copyWith(
+      subjectStats: emptyStats,
+      solvedQuestionIds: [],
+      wrongQuestionIds: [],
+    );
+    _syncToFirestore();
   }
 
   /// Delete account and reset app state

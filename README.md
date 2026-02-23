@@ -1,104 +1,40 @@
-# YKS Master Tablet
+# YKS Master Tablet 🎓📱
 
-Flutter tabanlı tablet uygulaması (iPad ve Android Tabletler için - Landscape Mode)
+> [!IMPORTANT]
+> **LEGAL NOTICE & PRIVACY**
+> This repository is publicly available for **portfolio demonstration and interview review purposes only**.
+> All rights reserved. Reproduction, distribution, modification, or usage of this source code for commercial or non-commercial purposes without explicit written permission from the author is **strictly prohibited**.
+> Certain sensitive configuration files (Firebase, API Keys) have been excluded for security reasons.
 
-## 📱 Proje Özellikleri
+A professional YKS (Higher Education Institutions Exam) preparation application designed specifically for iPad and Android Tablets (Landscape Mode).
 
-- **Platform**: iPad ve Android Tabletler
-- **Yönlendirme**: Yalnızca Landscape (Yatay) Mod
-- **Mimari**: Clean Architecture
-- **Durum Yönetimi**: Flutter Riverpod
+## 🚀 Overview
+
+YKS Master is a comprehensive exam solving and productivity suite for students. It features a custom drawing engine with smart shape recognition, persistent exam progress, and advanced analytic tools like the "Mistake Notebook".
+
+## ✨ Key Features
+
+- **Smart Exam Engine**: Full-screen exam solving with integrated persistent scratchpad.
+- **Draw & Hold (Shape Snapping)**: Intelligent algorithm (Douglas-Peucker) that converts hand-drawn rough sketches into perfect geometric shapes.
+- **Mistake Notebook (Yanlış Defteri)**: Automatically tracks incorrect answers and provides a focused interface for re-attempting failed questions.
+- **Daily Analysis**: Intelligent notification system that reminds users of pending reviews.
+- **Landscape Optimization**: Custom UI layout designed strictly for tablet experiences.
+
+## 🛠️ Technical Stack
+
+- **Framework**: Flutter
+- **Architecture**: Clean Architecture (Data, Domain, Presentation layers)
+- **State Management**: Flutter Riverpod
 - **Dependency Injection**: get_it
+- **Persistence**: SharedPreferences & Disk IO for stroke data
+- **Backend**: Firebase (Auth & Firestore) - *Disconnected in this demo version*
 
-## 🏗️ Klasör Yapısı
+## 📁 Repository Structure
 
-Proje Clean Architecture prensiplerine uygun olarak yapılandırılmıştır:
+- `lib/core`: Foundation, constants, and global utilities (including the Shape Recognizer).
+- `lib/data`: Repository implementations and data sources.
+- `lib/domain`: Business logic, entities, and repository interfaces.
+- `lib/presentation`: Custom widgets, Riverpod providers, and Tablet-optimized UI pages.
 
-```
-lib/
-├── core/                    # Temel işlevsellik ve paylaşılan kodlar
-│   ├── constants/          # Sabitler
-│   ├── error/              # Hata yönetimi
-│   ├── network/            # Ağ katmanı
-│   ├── usecases/           # Temel use case sınıfları
-│   └── utils/              # Yardımcı fonksiyonlar
-│
-├── features/               # Özellik modülleri (her özellik kendi klasöründe)
-│
-├── data/                   # Veri katmanı
-│   ├── datasources/        # Veri kaynakları (API, DB vb.)
-│   ├── models/             # Veri modelleri
-│   └── repositories/       # Repository implementasyonları
-│
-├── domain/                 # Domain katmanı (iş mantığı)
-│   ├── entities/           # İş varlıkları
-│   ├── repositories/       # Repository arayüzleri
-│   └── usecases/           # Use case'ler
-│
-└── presentation/           # Sunum katmanı
-    ├── pages/              # Sayfalar
-    ├── widgets/            # Özel widget'lar
-    └── providers/          # Riverpod provider'ları
-```
-
-## 📦 Bağımlılıklar
-
-- **flutter_svg** (^2.0.10+1): SVG görüntü desteği
-- **pdfx** (^2.7.0): PDF görüntüleme
-- **get_it** (^8.0.3): Dependency injection
-- **flutter_riverpod** (^2.6.1): Durum yönetimi
-
-## 🔧 Kurulum
-
-1. Flutter SDK'nın yüklü olduğundan emin olun
-2. Bağımlılıkları yükleyin:
-   ```bash
-   flutter pub get
-   ```
-
-3. Uygulamayı çalıştırın:
-   ```bash
-   flutter run
-   ```
-
-## 📐 Orientation Yapılandırması
-
-Uygulama yalnızca landscape (yatay) modda çalışacak şekilde yapılandırılmıştır:
-
-### Android
-`android/app/src/main/AndroidManifest.xml` dosyasında:
-```xml
-android:screenOrientation="landscape"
-```
-
-### iOS
-`ios/Runner/Info.plist` dosyasında:
-```xml
-<key>UISupportedInterfaceOrientations</key>
-<array>
-    <string>UIInterfaceOrientationLandscapeLeft</string>
-    <string>UIInterfaceOrientationLandscapeRight</string>
-</array>
-```
-
-### Flutter
-`lib/main.dart` dosyasında:
-```dart
-SystemChrome.setPreferredOrientations([
-  DeviceOrientation.landscapeLeft,
-  DeviceOrientation.landscapeRight,
-]);
-```
-
-## 🚀 Geliştirme
-
-Yeni özellikler eklerken Clean Architecture prensiplerine uygun olarak `features/` klasörü altında modüler yapı oluşturun.
-
-### Örnek Feature Yapısı:
-```
-features/
-└── example_feature/
-    ├── data/
-    ├── domain/
-    └── presentation/
-```
+---
+Developed by **[Adınız Soyadınız]**. 🦾

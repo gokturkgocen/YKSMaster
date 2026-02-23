@@ -10,7 +10,7 @@ class DrawingToolbar extends ConsumerWidget {
   final VoidCallback onPointerSelected; // New callback
   final VoidCallback onEraserSelected;
   final VoidCallback onLassoSelected;
-  final VoidCallback onClearAll;
+  final VoidCallback onQuestionGrid;
   final VoidCallback? onUndo;
   final bool canUndo;
   final GlobalKey? penButtonKey;
@@ -22,7 +22,7 @@ class DrawingToolbar extends ConsumerWidget {
     required this.onPointerSelected,
     required this.onEraserSelected,
     required this.onLassoSelected,
-    required this.onClearAll,
+    required this.onQuestionGrid,
     this.onUndo,
     this.canUndo = false,
     this.penButtonKey,
@@ -118,13 +118,12 @@ class DrawingToolbar extends ConsumerWidget {
 
           const SizedBox(width: 8),
 
-          // Clear All Button
+          // Question Navigator Grid Button
           _ToolButton(
-            icon: Icons.delete_outline,
+            icon: Icons.apps_rounded,
             isSelected: false,
-            onTap: onClearAll,
-            tooltip: 'Tümünü Temizle',
-            isDestructive: true,
+            onTap: onQuestionGrid,
+            tooltip: 'Soru Haritası',
             theme: theme,
           ),
 

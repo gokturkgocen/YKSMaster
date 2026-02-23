@@ -155,7 +155,17 @@ class HomeView extends ConsumerWidget {
       onPointerSelected: () => drawingNotifier.changeTool(DrawingTool.pointer),
       onEraserSelected: () => drawingNotifier.changeTool(DrawingTool.eraser),
       onLassoSelected: () => drawingNotifier.changeTool(DrawingTool.lasso),
-      onClearAll: drawingNotifier.clearAll,
+      onQuestionGrid: () {
+        // No question context on home view
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Soru haritası sadece sınav ekranında kullanılabilir.',
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      },
       onUndo: drawingNotifier.undo,
       canUndo: drawingState.canUndo,
     );

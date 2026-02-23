@@ -14,8 +14,10 @@ class ExamQuestion {
   final String subject;
   final String questionText;
   final List<String> options;
-  final int correctAnswer; // 0-3 for A-D
+  final int correctAnswer; // 0-4 for A-E (Gemini provided 5 options)
   final ExamType examType;
+  final String? explanation;
+  final Map<String, dynamic>? metadata;
 
   const ExamQuestion({
     required this.id,
@@ -24,32 +26,41 @@ class ExamQuestion {
     required this.options,
     required this.correctAnswer,
     required this.examType,
+    this.explanation,
+    this.metadata,
   });
 
   /// Convert to Map for Firestore
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'id': id.toString(), // Ensure ID is string
       'subject': subject,
       'questionText': questionText,
       'options': options,
       'correctAnswer': correctAnswer,
       'examType': examType.name,
+      'explanation': explanation,
+      'metadata': metadata,
     };
   }
 
   /// Create from Firestore Map
   factory ExamQuestion.fromMap(Map<String, dynamic> map) {
     return ExamQuestion(
-      id: map['id'] ?? '',
+      id: map['id']?.toString() ?? '',
       subject: map['subject'] ?? '',
       questionText: map['questionText'] ?? '',
       options: List<String>.from(map['options'] ?? []),
-      correctAnswer: map['correctAnswer'] ?? 0,
+      // Handle both correctAnswer and correctAnswerIndex (Gemini's format)
+      correctAnswer: map['correctAnswer'] ?? map['correctAnswerIndex'] ?? 0,
       examType: ExamType.values.firstWhere(
         (e) => e.name == map['examType'],
         orElse: () => ExamType.tyt,
       ),
+      explanation: map['explanation'],
+      metadata: map['metadata'] != null
+          ? Map<String, dynamic>.from(map['metadata'])
+          : null,
     );
   }
 }

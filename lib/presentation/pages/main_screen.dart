@@ -7,6 +7,7 @@ import 'dashboard_page.dart';
 import 'deneme_page.dart';
 import 'explore_page.dart';
 import 'profile_page.dart';
+import '../providers/user_profile_provider.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -17,6 +18,59 @@ class MainScreen extends ConsumerStatefulWidget {
 
 class _MainScreenState extends ConsumerState<MainScreen> {
   int _currentIndex = 2; // Default to 'Anasayfa' (index 2)
+  bool _notificationShown = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkDailyMistakes();
+  }
+
+  void _checkDailyMistakes() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _notificationShown) return;
+
+      final profile = ref.read(userProfileProvider);
+      final wrongCount = profile.wrongQuestionIds.length;
+
+      if (wrongCount > 0) {
+        _notificationShown = true;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(
+                  CupertinoIcons.bell_fill,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Selam! Yanlış defterinde temizlenmeyi bekleyen $wrongCount soru var. 💪',
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.orange.shade700,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            action: SnackBarAction(
+              label: 'İNCELE',
+              textColor: Colors.white,
+              onPressed: () {
+                setState(() => _currentIndex = 3); // Switch to Explore
+              },
+            ),
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
+    });
+  }
 
   final List<Widget> _pages = [
     const TestPage(), // Test

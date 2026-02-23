@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// App theme configuration with Liquid Glass light and dark modes
 class AppTheme {
@@ -58,16 +59,34 @@ class AppTheme {
   }
 }
 
-/// Theme notifier for managing dark/light mode
+/// Theme notifier for managing dark/light mode with persistence
 class ThemeNotifier extends StateNotifier<AppTheme> {
-  ThemeNotifier() : super(const AppTheme());
+  static const _keyIsDark = 'theme_is_dark';
+
+  ThemeNotifier() : super(const AppTheme()) {
+    _loadTheme();
+  }
+
+  Future<void> _loadTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isDark = prefs.getBool(_keyIsDark) ?? false;
+    state = AppTheme(isDark: isDark);
+  }
+
+  Future<void> _saveTheme(bool isDark) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keyIsDark, isDark);
+  }
 
   void toggleTheme() {
-    state = state.copyWith(isDark: !state.isDark);
+    final newIsDark = !state.isDark;
+    state = state.copyWith(isDark: newIsDark);
+    _saveTheme(newIsDark);
   }
 
   void setDarkMode(bool isDark) {
     state = state.copyWith(isDark: isDark);
+    _saveTheme(isDark);
   }
 }
 

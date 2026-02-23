@@ -5,6 +5,7 @@ import '../providers/theme_provider.dart';
 import '../providers/leaderboard_provider.dart';
 import '../providers/user_profile_provider.dart';
 import '../../domain/models/user_model.dart';
+import 'mistakes/mistake_notebook_page.dart';
 
 class ExplorePage extends ConsumerWidget {
   const ExplorePage({super.key});
@@ -26,7 +27,11 @@ class ExplorePage extends ConsumerWidget {
             children: [
               // Header & My Rank
               _buildHeader(userProfile, userRankState, theme),
-              const SizedBox(height: 40),
+              const SizedBox(height: 24),
+
+              // Mistake Notebook Card [NEW]
+              _buildMistakeNotebookCard(context, userProfile, theme),
+              const SizedBox(height: 32),
 
               // Leaderboard Title
               Text(
@@ -129,6 +134,79 @@ class ExplorePage extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMistakeNotebookCard(
+    BuildContext context,
+    UserProfile profile,
+    AppTheme theme,
+  ) {
+    final count = profile.wrongQuestionIds.length;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MistakeNotebookPage()),
+        );
+      },
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: theme.surface,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: theme.divider.withValues(alpha: 0.5)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.orange.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                CupertinoIcons.book_fill,
+                color: Colors.orange,
+                size: 28,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Yanlış Defterim',
+                    style: TextStyle(
+                      color: theme.text,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    count > 0
+                        ? '$count soruda takılmışsın. Tekrar bakmak ister misin?'
+                        : 'Henüz eksik konun yok, harika!',
+                    style: TextStyle(color: theme.textSecondary, fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+            Icon(CupertinoIcons.chevron_right, color: theme.textSecondary),
+          ],
+        ),
       ),
     );
   }

@@ -1,0 +1,11 @@
+name: yks_master_uploader
+description: External CLI tool to upload questions to Firestore for YKS Master.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  firedart: ^0.9.8
+  path: ^1.8.3

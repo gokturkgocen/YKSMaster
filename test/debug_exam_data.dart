@@ -1,5 +1,4 @@
 import 'package:yks_vision_tablet/data/sample_exam_data.dart';
-import 'package:yks_vision_tablet/domain/models/mock_exam.dart';
 
 void main() {
   final exam = SampleExamData.getSampleExam();

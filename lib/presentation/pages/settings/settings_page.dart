@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/theme_provider.dart';
 import '../../providers/user_profile_provider.dart';
-import 'package:yks_vision_tablet/data/datasources/seeding_script.dart';
 import 'package:yks_vision_tablet/presentation/providers/question_provider.dart';
 import 'personal_info_page.dart';
 import 'static_content_page.dart';
@@ -130,41 +129,6 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-
-              // 3. Developer Zone
-              _buildSectionTitle('GELİŞTİRİCİ', theme),
-              _buildSettingsCard(
-                theme,
-                children: [
-                  _buildSettingItem(
-                    icon: CupertinoIcons.cloud_upload,
-                    title: 'Veritabanını Tohumla (Sorular)',
-                    theme: theme,
-                    onTap: () async {
-                      final messenger = ScaffoldMessenger.of(context);
-                      messenger.showSnackBar(
-                        const SnackBar(content: Text('Tohumlama başladı...')),
-                      );
-
-                      try {
-                        await seedDatabase(
-                          ref.read(questionRepositoryProvider),
-                        );
-                        messenger.showSnackBar(
-                          const SnackBar(
-                            content: Text('Tohumlama tamamlandı!'),
-                          ),
-                        );
-                      } catch (e) {
-                        messenger.showSnackBar(
-                          SnackBar(content: Text('Hata: $e')),
-                        );
-                      }
-                    },
                   ),
                 ],
               ),

@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Bu parçadaki altı çizili sözle anlatılmak istenen aşağıdakilerden hangisidir?\n\n'Bazı yazarlar, okurun zihninde hazır kalıplar oluşturmak yerine onları düşünsel bir **pusuladan mahrum bırakarak** kendi yollarını bulmalarını ister.'",
+    "options": [
+      "Okura yol gösterecek belirgin ipuçları sunmamak",
+      "Eserin karmaşık bir dille kaleme alınması",
+      "Okurun hayal gücünü sınırlamaya çalışmak",
+      "Yazarın kendi görüşlerini okura dayatması",
+      "Metnin sonunu belirsiz bırakarak merak uyandırmak"
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Pusula yol göstericidir; pusuladan mahrum bırakmak, okura hazır bir yön veya kılavuz vermemek anlamına gelir.",
+    "metadata": {
+      "topic": "Sözcükte Anlam",
+      "subTopic": "Söz Öbeği Anlamı",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 2,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Sanatçı, eserinde toplumsal sorunları ---- bir dille anlatmak yerine, onları bireyin iç dünyasındaki yansımaları üzerinden ---- tercih etmiştir.\n\nBu cümlede boş bırakılan yerlere sırasıyla aşağıdakilerden hangisi getirilmelidir?",
+    "options": [
+      "didaktik - harmanlamayı",
+      "süslü - gizlemeyi",
+      "yalın - eleştirmeyi",
+      "karamsar - aktarmayı",
+      "güncel - yorumlamayı"
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Didaktik (öğretici) dilin zıttı, duygusal veya içsel bir anlatımdır. Harmanlamak ise bütünleştirmeyi ifade eder.",
+    "metadata": {
+      "topic": "Cümlede Anlam",
+      "subTopic": "Boşluk Doldurma",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 3,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde 'koşula bağlılık' söz konusudur?",
+    "options": [
+      "Hava karardığı için eve dönmek zorunda kaldık.",
+      "Onu gördükçe çocukluk yıllarımı hatırlarım.",
+      "Düzenli çalışırsan hedeflerine ulaşman kolaylaşır.",
+      "Sinemaya gitmek üzere evden erkenden çıktı.",
+      "Kitabı bitirir bitirmez kütüphaneye teslim etti."
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "'-sa/-se' eki cümleye şart (koşul) anlamı katmıştır.",
+    "metadata": {
+      "topic": "Cümlede Anlam",
+      "subTopic": "Cümle İlişkileri",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 4,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "'Bir eleştirmenin görevi, eserin ne olduğunu söylemekten çok, ne olabileceğini göstermektir.'\n\nBu cümleye anlamca en yakın seçenek aşağıdakilerden hangisidir?",
+    "options": [
+      "Eleştiri, eserin kusurlarını ortaya çıkarma sanatıdır.",
+      "İyi bir eleştirmen, eserin gelecekteki potansiyeline ışık tutar.",
+      "Eleştirmen, yazarın anlatmak istediklerini nesnel bir gözle aktarır.",
+      "Eserin mevcut durumu, eleştirmenin temel odak noktasıdır.",
+      "Yaratıcı süreçte eleştirmenin katkısı yadsınamaz bir gerçektir."
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Eserin 'ne olabileceğini göstermek', onun potansiyelini ve gelecekteki gelişimini işaret eder.",
+    "metadata": {
+      "topic": "Cümlede Anlam",
+      "subTopic": "Cümle Yorumu",
+      "difficulty": "Zor"
+    }
+  },
+  {
+    "id": 5,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde herhangi bir ses olayı yoktur?",
+    "options": [
+      "Uçağımız tam vaktinde havalandı.",
+      "Bu şehri terk etmek ona zor gelmişti.",
+      "Sarı saçları omuzlarına dökülüyordu.",
+      "Kitaplarını masanın üzerine yavaşça bıraktı.",
+      "Bugün hava her zamankinden daha serin."
+    ],
+    "correctAnswerIndex": 4,
+    "explanation": "Diğer şıklarda yumuşama (uçağımız), düşme (şehri/sarı/omuzlarına) veya benzeşme (yavaşça/bıraktı) varken E şıkkında yoktur.",
+    "metadata": {
+      "topic": "Ses Bilgisi",
+      "subTopic": "Ses Olayları Karma",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 6,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki altı çizili sözcüklerden hangisi yapısı bakımından (basit, türemiş, birleşik) diğerlerinden farklıdır?",
+    "options": [
+      "Gözlük",
+      "Kitaplık",
+      "Sessiz",
+      "Bilgi",
+      "Çiçek"
+    ],
+    "correctAnswerIndex": 4,
+    "explanation": "Çiçek kök halindedir (basittir), diğerleri yapım eki almıştır (türemiştir).",
+    "metadata": {
+      "topic": "Sözcük Yapısı",
+      "subTopic": "Sözcük Yapısı Karma",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 7,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "'Akşamın kızıllığı, denizin durgun sularında harika bir tablo oluşturuyordu.'\n\nBu cümlenin öge dizilişi aşağıdakilerden hangisidir?",
+    "options": [
+      "Özne - Dolaylı Tümleç - Belirtisiz Nesne - Yüklem",
+      "Belirtili Nesne - Özne - Yüklem",
+      "Zarf Tümleci - Özne - Yüklem",
+      "Özne - Belirtili Nesne - Zarf Tümleci - Yüklem",
+      "Özne - Zarf Tümleci - Yüklem"
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Oluşturuyordu (Yüklem), Akşamın kızıllığı (Özne), denizin durgun sularında (Dolaylı Tümleç), harika bir tablo (Belirtisiz Nesne).",
+    "metadata": {
+      "topic": "Cümlenin Ögeleri",
+      "subTopic": "Öge Dizilişi",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 8,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde bir yazım yanlışı vardır?",
+    "options": [
+      "Her şey yolunda giderse yarın görüşürüz.",
+      "Pek çok öğrenci bu soruda hata yaptı.",
+      "Ankara Kalesi'ni dün ziyaret ettik.",
+      "Öyleki kimse ne olduğunu anlayamadı.",
+      "Laboratuvardaki deney başarıyla sonuçlandı."
+    ],
+    "correctAnswerIndex": 3,
+    "explanation": "'Öyle ki' bağlacı ayrı yazılmalıdır.",
+    "metadata": {
+      "topic": "Yazım Kuralları",
+      "subTopic": "Bağlaçların Yazımı",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 9,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde büyük harflerin yazımı ile ilgili bir yanlışlık yapılmıştır?",
+    "options": [
+      "Van Kedisi çok cana yakın bir hayvandır.",
+      "Resmî Gazete'de yayımlanan kararı okudun mu?",
+      "Doğu Anadolu'da kar yağışı bekleniyor.",
+      "Ayşe teyzem bize börek yapmış.",
+      "Cumhuriyet Bayramı coşkuyla kutlandı."
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Hayvan tür adları (kedi, köpek) özel isimle birlikte kullanıldığında küçük harfle başlar: Van kedisi.",
+    "metadata": {
+      "topic": "Yazım Kuralları",
+      "subTopic": "Büyük Harflerin Yazımı",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 10,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Hava çok soğuktu ( ) pencereler buz tutmuştu ( ) dışarıda ise amansız bir fırtına ( )\n\nBu cümlede parantezlerle belirtilen yerlere sırasıyla hangi noktalama işaretleri gelmelidir?",
+    "options": [
+      "(; ) ( ,) (...)",
+      "(, ) ( ;) (...)",
+      "(; ) ( ;) (.)",
+      "(, ) ( ,) (.)",
+      "(; ) (.) (...)"
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Sıralı cümleler içinde virgül varsa cümleler noktalı virgülle ayrılır; eksiltili cümle sonuna üç nokta konur.",
+    "metadata": {
+      "topic": "Noktalama İşaretleri",
+      "subTopic": "Karma Noktalama",
+      "difficulty": "Zor"
+    }
+  },
+  {
+    "id": 11,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde noktalama hatası yapılmıştır?",
+    "options": [
+      "Ankara, İstanbul ve İzmir büyük şehirlerimizdir.",
+      "Eyvah! Cüzdanımı evde unuttum.",
+      "Yarın gelecek mi? bilmiyorum.",
+      "Bahçede elma, armut; mutfakta ise tabaklar vardı.",
+      "Dr. Ahmet Bey ile görüştük."
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Soru işaretinden sonra küçük harfle devam edilemez; ya soru işareti yerine virgül gelmeli ya da 'Bilmiyorum' büyük harfle başlamalıdır.",
+    "metadata": {
+      "topic": "Noktalama İşaretleri",
+      "subTopic": "Soru İşareti",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 12,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Güneşin ilk ışıklarıyla birlikte köy uyandı. Horoz sesleri kuş cıvıltılarına karışıyordu. Dere şırıl şırıl akarken, taze ekmek kokusu tüm sokağı kapladı.\n\nBu parçada hangi anlatım biçimi ağır basmaktadır?",
+    "options": [
+      "Öyküleme",
+      "Betimleme",
+      "Tartışma",
+      "Açıklama",
+      "Tanımlama"
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Varlıkları ayırt edici özellikleriyle (görsel, işitsel, koklama) zihinde canlandıracak şekilde anlatma yani betimleme yapılmıştır.",
+    "metadata": {
+      "topic": "Paragrafta Anlatım",
+      "subTopic": "Anlatım Biçimleri",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 13,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "(I) Modern insan, teknolojinin hızıyla zamanı yönetmeye çalışıyor. (II) Akıllı telefonlar ve internet, hayatımızın her alanına nüfuz etti. (III) Ancak bu hız, çoğu zaman odaklanma sorunlarını beraberinde getiriyor. (IV) Geçmişte insanlar mektup yazarak haberleşirdi. (V) Dikkatimizi bir noktada toplamak her geçen gün zorlaşıyor.\n\nNumaralanmış cümlelerden hangisi düşüncenin akışını bozmaktadır?",
+    "options": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V"
+    ],
+    "correctAnswerIndex": 3,
+    "explanation": "Paragraf genel olarak günümüzdeki hız ve dikkat sorunundan bahsederken IV. cümle geçmişteki haberleşmeye geçerek akışı bozar.",
+    "metadata": {
+      "topic": "Paragrafta Yapı",
+      "subTopic": "Akışı Bozan Cümle",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 14,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "(I) Şiir, dilin en ekonomik ve en etkili kullanım biçimidir. (II) Az sözle çok şey anlatmak şairin ustalığına bağlıdır. (III) Roman ise geniş zaman dilimlerine ve derinlemesine tahlillere ihtiyaç duyar. (IV) Karakterlerin gelişimi romanda sayfalarca sürebilir. (V) Bu yüzden roman okuru, sabırlı ve dikkatli olmalıdır.\n\nBu parça iki paragrafa ayrılmak istense ikinci paragraf hangi cümleyle başlar?",
+    "options": [
+      "II",
+      "III",
+      "IV",
+      "V",
+      "I"
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "III. cümleden itibaren şiir konusundan roman konusuna geçildiği için paragraf buradan bölünmelidir.",
+    "metadata": {
+      "topic": "Paragrafta Yapı",
+      "subTopic": "Paragrafı İkiye Bölme",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 15,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "'Bu durum, sanatçının toplumsal sorumluluğunu da beraberinde getirir.'\n\nYukarıdaki cümle numaralanmış yerlerden hangisine getirilmelidir? \n\n(I) Sanat, sadece güzelliğin peşinde koşmak değildir. (II) Sanatçı, yaşadığı çağın tanığıdır. (III) --- (IV) O, toplumun acılarını ve sevinçlerini eserine yansıtır.",
+    "options": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Sanatçının 'çağın tanığı olması' durumu (II), bir sorumluluk yükler (III). IV. cümle ise bu sorumluluğun içeriğini açıklar.",
+    "metadata": {
+      "topic": "Paragrafta Yapı",
+      "subTopic": "Cümle Yerleştirme",
+      "difficulty": "Zor"
+    }
+  },
+  {
+    "id": 16,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Okumak, sadece satırlar arasında gezinmek değildir. Gerçek bir okur, yazarın kurduğu dünyaya dahil olur ve kendi deneyimleriyle o dünyayı yeniden inşa eder. Yani okuma süreci, ----.\n\nBu parçanın sonuna hangisi getirilmelidir?",
+    "options": [
+      "yazar ve okur arasında pasif bir alışveriştir",
+      "bir bilginin zihne doğrudan aktarılmasıdır",
+      "okurun da dahil olduğu aktif bir üretim sürecidir",
+      "sadece boş zamanları değerlendirme aracıdır",
+      "kitabın kapağını kapatınca sona eren bir eylemdir"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Okurun 'dünyayı yeniden inşa etmesi', onun sürece aktif katıldığını gösterir.",
+    "metadata": {
+      "topic": "Paragrafta Yapı",
+      "subTopic": "Paragraf Tamamlama",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 17,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Bir orkestradaki her enstrüman farklı bir ses çıkarır. Kimi serttir, kimi yumuşak. Ama hepsi bir şefin yönetiminde uyum içinde çaldığında ortaya bir başyapıt çıkar. Toplumlar da böyledir; farklılıklar bir zenginliktir.\n\nBu parçanın ana düşüncesi nedir?",
+    "options": [
+      "Müzik eğitimi her birey için gereklidir.",
+      "Bir liderin olmadığı toplumlar kaosa sürüklenir.",
+      "Toplumsal uyum, farklılıkların birleşmesiyle sağlanır.",
+      "Orkestralarda disiplin en önemli kuraldır.",
+      "Her birey kendi yeteneğini özgürce sergilemelidir."
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Paragrafın sonunda orkestra örneğinden toplumdaki farklılıkların uyumuna (zenginliğine) geçiş yapılmıştır.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Ana Düşünce",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 18,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Antarktika, dünyanın en soğuk ve en izole kıtasıdır. Bilim insanları burada iklim değişikliğinin etkilerini gözlemlemek için zorlu şartlarda çalışırlar. Buzullardan alınan örnekler, dünyanın binlerce yıl önceki atmosferi hakkında bilgi verir.\n\nBu parçadan hareketle hangisi çıkarılamaz?",
+    "options": [
+      "Antarktika'nın coğrafi konumu izoledir.",
+      "Bölgede bilimsel çalışmalar yapılmaktadır.",
+      "Geçmişe dair veriler buzullarda saklıdır.",
+      "İklim değişikliği sadece bu kıtayı etkilemektedir.",
+      "Bölgedeki çalışma koşulları oldukça ağırdır."
+    ],
+    "correctAnswerIndex": 3,
+    "explanation": "Metinde iklim değişikliğinin etkilerinin orada 'gözlendiği' söylenmiş, 'sadece orayı etkilediği' gibi bir sınırlama yapılmamıştır.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Yardımcı Düşünce",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 19,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Kahve, Etiyopya'dan başlayıp tüm dünyaya yayılan kültürel bir fenomendir. Sadece bir içecek değil, aynı zamanda sohbetlerin ve sosyal etkileşimlerin merkezindedir. Farklı demleme teknikleri, kahvenin tadını ve aromasını değiştirir.\n\nBu parçada kahve ile ilgili aşağıdakilerden hangisine değinilmemiştir?",
+    "options": [
+      "Kökeninin neresi olduğuna",
+      "Sosyal hayattaki yerine",
+      "Farklı hazırlama yöntemleri olduğuna",
+      "Dünya çapında popüler olduğuna",
+      "Sağlık üzerindeki olumlu etkilerine"
+    ],
+    "correctAnswerIndex": 4,
+    "explanation": "Metinde kahvenin sağlığa faydalarıyla ilgili bir bilgi yer almamaktadır.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Yardımcı Düşünce",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 20,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Gazeteci: (I) ---- \n Yazar: Genellikle sabahın sessizliğinde yazmayı severim. \n Gazeteci: (II) ---- \n Yazar: Hayır, karakterlerim bazen kendi yolunu kendisi çizer. \n\nBu diyalogda boş bırakılan yerlere sırasıyla hangisi getirilmelidir?",
+    "options": [
+      "Hangi vakitler yazarsınız? / Karakterlerinizi önceden planlar mısınız?",
+      "Neden sabah yazıyorsunuz? / Kitaplarınız çok satıyor mu?",
+      "Yazmak bir yetenek mi? / Kurgu yapmak zor mu?",
+      "İlham nereden gelir? / Kahramanlarınız sizi dinler mi?",
+      "Yazarken ne içersiniz? / Yeni bir kitap yolda mı?"
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Yazarın cevapları sırasıyla zaman (sabah) ve karakter kurgusu (kendi yollarını çizmeleri) üzerinedir.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Diyalog Tamamlama",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 21,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki deyimlerden hangisi 'çok şaşırmak' anlamında kullanılır?",
+    "options": [
+      "Kulak kabartmak",
+      "Gözü dönmek",
+      "Küçük dilini yutmak",
+      "Etekleri zil çalmak",
+      "Başına buyruk olmak"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "'Küçük dilini yutmak' deyimi aşırı şaşkınlık ve hayret durumunu ifade eder.",
+    "metadata": {
+      "topic": "Sözcükte Anlam",
+      "subTopic": "Deyimler ve Atasözleri",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 22,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "'Hızlı koşan çocuk, yarışı hızlı bitirdi.'\n\nBu cümledeki 'hızlı' sözcüklerinin türü sırasıyla nedir?",
+    "options": [
+      "Sıfat - Zarf",
+      "Zarf - Zarf",
+      "Sıfat - Sıfat",
+      "Zarf - Sıfat",
+      "İsim - Zarf"
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Her iki 'hızlı' sözcüğü de fiilimsiyi (koşan) ve fiili (bitirdi) nitelediği için ikisi de zarftır.",
+    "metadata": {
+      "topic": "Sözcük Türleri",
+      "subTopic": "Zarf",
+      "difficulty": "Zor"
+    }
+  },
+  {
+    "id": 23,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Eski İstanbul mahallelerinde komşuluk ilişkileri bir güven duvarı üzerine inşa edilirdi. Herkes birbirinin derdini bilir, sevincini paylaşırdı.\n\nBu parçanın içeriğine en uygun başlık hangisidir?",
+    "options": [
+      "İstanbul'un Tarihi",
+      "Güvenin Önemi",
+      "Mahalle Kültürü ve Komşuluk",
+      "Modern Şehir Yaşamı",
+      "Eski Evlerin Mimarisi"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Metin tamamen mahalle içindeki komşuluk ve sosyal ilişkileri ele almaktadır.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Konu ve Başlık",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 24,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki kısaltmaların hangisine getirilen ekte yanlışlık yapılmıştır?",
+    "options": [
+      "THY'ye",
+      "TDK'dan",
+      "kg'dan",
+      "TRT'nin",
+      "UNESCO'ya"
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Kısaltmalarda ek harf okunuşuna göre gelir. TDK 'te-de-ke' diye okunur, dolayısıyla 'TDK'den' olmalıdır.",
+    "metadata": {
+      "topic": "Yazım Kuralları",
+      "subTopic": "Kısaltmaların Yazımı",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 25,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Kapıyı sessizce açtım. İçeride kimse yoktu ama masanın üzerinde yarım bırakılmış bir fincan çay duruyordu. Pencereye doğru yürüdüm.\n\nBu parça hangi bakış açısıyla yazılmıştır?",
+    "options": [
+      "İlahi Bakış Açısı",
+      "Gözlemci Bakış Açısı",
+      "Kahraman Bakış Açısı",
+      "Nesnel Bakış Açısı",
+      "Müşahit Bakış Açısı"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "'Açtım, yürüdüm' ifadeleri olayın bir kahraman tarafından (1. şahıs) anlatıldığını gösterir.",
+    "metadata": {
+      "topic": "Paragrafta Anlatım",
+      "subTopic": "Anlatıcı ve Bakış Açısı",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 26,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisi 'kanıtlanabilirlik' (nesnellik) açısından diğerlerinden farklıdır?",
+    "options": [
+      "Bu roman toplam 350 sayfadan oluşuyor.",
+      "Yazarın son kitabı çok etkileyiciydi.",
+      "Türkiye'nin başkenti Ankara'dır.",
+      "Güneş doğudan doğar.",
+      "Sınav sonuçları dün açıklandı."
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "'Etkileyici' ifadesi kişiden kişiye değişen bir yorumdur (özneldir).",
+    "metadata": {
+      "topic": "Cümlede Anlam",
+      "subTopic": "Öznel ve Nesnel Anlatım",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 27,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Yapay zekâ, sanat dünyasında yeni bir tartışma başlattı. Makineler resim yapabiliyor, beste üretebiliyor. Ancak bu eserlerin 'sanat' sayılıp sayılmayacağı hâlâ belirsiz. Çünkü sanat, insan ruhunun bir yansıması olarak görülüyor.\n\nBu parçaya göre sanatın temel ölçütü nedir?",
+    "options": [
+      "Makineler tarafından üretilmesi",
+      "Güzel ve estetik olması",
+      "İnsan ruhunu yansıtması",
+      "Yeni teknolojiler kullanılması",
+      "Çok pahalıya satılması"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Metnin son cümlesi sanatın insan ruhunun yansıması olması gerektiğini belirterek ölçütü verir.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Yardımcı Düşünce",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 28,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Yukarıdaki parçadan (27. soru) hareketle yapay zekâ ile ilgili hangisi çıkarılabilir?",
+    "options": [
+      "Sanatçıların yerini tamamen almıştır.",
+      "Sanat alanında üretim yapabilmektedir.",
+      "Eserleri herkes tarafından sanat kabul edilir.",
+      "Sadece matematiksel verilerle çalışır.",
+      "Sanat dünyasindeki tartışmaları bitirmiştir."
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Makinelerin 'resim yapabildiği ve beste üretebildiği' üretim yeteneğine sahip olduklarını gösterir.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Yardımcı Düşünce",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 29,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde virgül (,) kaldırılırsa cümlenin anlamı değişir?",
+    "options": [
+      "Genç, adamın arkasından sessizce baktı.",
+      "Okul, her zaman en güvenli yerdir.",
+      "Bugün, çok yorucu bir gündü.",
+      "Ali, kitap okumayı çok seviyor.",
+      "Masa, çok sağlam görünüyordu."
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Virgül kalkarsa 'genç adam' tamlaması oluşur ve bakan kişi belirsizleşir.",
+    "metadata": {
+      "topic": "Noktalama İşaretleri",
+      "subTopic": "Virgülün İşlevi",
+      "difficulty": "Zor"
+    }
+  },
+  {
+    "id": 30,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Spor yapmak sadece fiziksel güç kazandırmaz. Aynı zamanda disiplin, dayanıklılık ve takım ruhu aşılar. Bu yüzden spor, ----.\n\nBu cümleyi hangisi en iyi tamamlar?",
+    "options": [
+      "sadece profesyoneller içindir",
+      "insan karakterini şekillendiren bir araçtır",
+      "vakit kaybı olarak görülmemelidir",
+      "pahalı ekipmanlar gerektirir",
+      "yorgunluktan başka bir şey değildir"
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Disiplin ve ruh aşılaması, sporun karakter üzerindeki etkisini vurgular.",
+    "metadata": {
+      "topic": "Paragrafta Yapı",
+      "subTopic": "Paragraf Tamamlama",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 31,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde birbirine zıt kavramlar (zıt anlamlılık) bir arada kullanılmıştır?",
+    "options": [
+      "İyi günde kötü günde yanımdaydı.",
+      "Aşağı yukarı üç saat bekledik.",
+      "Düşe kalka bu yolu bitirdik.",
+      "Sıcak ve soğuk suyu karıştırdı.",
+      "Yukarıdakilerin tamamında zıt kavramlar vardır."
+    ],
+    "correctAnswerIndex": 4,
+    "explanation": "Tüm şıklarda (iyi/kötü, aşağı/yukarı, düşmek/kalkmak, sıcak/soğuk) zıt kavramlar bir aradadır.",
+    "metadata": {
+      "topic": "Sözcükte Anlam",
+      "subTopic": "Anlam İlişkileri",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 32,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Hata yapmaktan korkan biri, yeni bir şey keşfedemez. Bilim tarihi, yanlış giden deneylerin sonucunda ortaya çıkan muazzam buluşlarla doludur. Önemli olan hatadan ders çıkarmaktır.\n\nBu parçanın ana iletisi nedir?",
+    "options": [
+      "Bilim adamları çok zeki insanlardır.",
+      "Hata yapmak, keşif sürecinin bir parçasıdır.",
+      "Deney yapmak tehlikeli olabilir.",
+      "Geçmişteki buluşlar bugün geçersizdir.",
+      "Yanlış yoldan giden hedefine ulaşamaz."
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "Parça, hataların keşiflere yol açabileceğini savunarak hatayı sürecin bir parçası olarak görür.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Ana Düşünce",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 33,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde hem isim tamlaması hem de sıfat tamlaması vardır?",
+    "options": [
+      "Mavi arabanın kapısı açıktı.",
+      "Çocuklar bahçede oynuyor.",
+      "Hava çok soğuk.",
+      "Kapı kolu kırılmış.",
+      "Güzel çiçekler açmış."
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "'Mavi araba' (Sıfat Tamlaması), 'arabanın kapısı' (İsim Tamlaması).",
+    "metadata": {
+      "topic": "Sözcük Türleri",
+      "subTopic": "Tamlamalar",
+      "difficulty": "Zor"
+    }
+  },
+  {
+    "id": 34,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki birleşik sözcüklerin hangisinin yazımı yanlıştır?",
+    "options": [
+      "Hanımeli",
+      "Kuşburnu",
+      "Terketmek",
+      "Başöğretmen",
+      "Denizaltı"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Ses düşmesi veya türemesi olmayan yardımcı eylemle kurulan birleşik fiiller ayrı yazılır: Terk etmek.",
+    "metadata": {
+      "topic": "Yazım Kuralları",
+      "subTopic": "Birleşik Sözcüklerin Yazımı",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 35,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "O, her zaman bardağın dolu tarafına bakardı. En karanlık günlerde bile bir umut ışığı bulur, çevresindekileri yüreklendirirdi.\n\nBu parçada söz edilen kişi için aşağıdakilerden hangisi söylenebilir?",
+    "options": [
+      "Karamsar",
+      "Titiz",
+      "İyimser",
+      "Bencil",
+      "Kararsız"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "'Bardağın dolu tarafı' ve 'umut ışığı' iyimser bir kişiliği simgeler.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Karakter Analizi",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 36,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde neden-sonuç ilişkisi vardır?",
+    "options": [
+      "Yağmur yağdığı için maç iptal oldu.",
+      "Kilo vermek için spor yapıyor.",
+      "Eve gitmek üzere ayrıldı.",
+      "Çok çalışırsa kazanır.",
+      "Okumak, ufkumuzu açar."
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Maçın iptal olmasının 'nedeni' yağmurun yağmasıdır.",
+    "metadata": {
+      "topic": "Cümlede Anlam",
+      "subTopic": "Neden-Sonuç İlişkisi",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 37,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Mimar Sinan, Osmanlı mimarisinin zirvesidir. Selimiye ve Süleymaniye gibi eserleri, sadece teknik birer başarı değil, aynı zamanda estetik birer harikadır. Eserlerinde kullandığı akustik çözümler bugün bile hayranlık uyandırır.\n\nParçadan hangisine ulaşılamaz?",
+    "options": [
+      "Mimar Sinan Osmanlı döneminde yaşamıştır.",
+      "Selimiye ve Süleymaniye önemli eserleridir.",
+      "Eserlerinde sadece görselliğe önem vermiştir.",
+      "Teknik ve estetiği birleştirmiştir.",
+      "Ses düzeni (akustik) konusunda başarılıdır."
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Metinde 'sadece teknik başarı değil, aynı zamanda estetik' olduğu söylenerek her ikisinin önemi vurgulanmıştır.",
+    "metadata": {
+      "topic": "Paragrafta Anlam",
+      "subTopic": "Yardımcı Düşünce",
+      "difficulty": "Orta"
+    }
+  },
+  {
+    "id": 38,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Aşağıdaki cümlelerin hangisinde 'ince' sözcüğü mecaz anlamda kullanılmıştır?",
+    "options": [
+      "İnce bir ip koptu.",
+      "Bize çok ince davrandı.",
+      "İnce bir kâğıt kesti.",
+      "Kumaşı çok inceydi.",
+      "İnce dallar kırıldı."
+    ],
+    "correctAnswerIndex": 1,
+    "explanation": "İnce davranmak; nazik, düşünceli olmak anlamında mecazdır.",
+    "metadata": {
+      "topic": "Sözcükte Anlam",
+      "subTopic": "Temel ve Mecaz Anlam",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 39,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "Sinema, edebiyattan çok beslenir. Birçok kült roman beyaz perdeye uyarlanmıştır. ---- bazen film, kitabın ruhunu tam olarak yansıtmaktan uzak kalabilir.\n\nBoşluğa hangisi gelmelidir?",
+    "options": [
+      "Üstelik",
+      "Ayrıca",
+      "Fakat",
+      "Bundan dolayı",
+      "Sonuç olarak"
+    ],
+    "correctAnswerIndex": 2,
+    "explanation": "Cümlenin akışı olumludan olumsuza geçtiği için 'fakat' bağlacı uygundur.",
+    "metadata": {
+      "topic": "Cümlede Anlam",
+      "subTopic": "Düşüncenin Yönünü Değiştirenler",
+      "difficulty": "Kolay"
+    }
+  },
+  {
+    "id": 40,
+    "subject": "TYT - Türkçe",
+    "examType": "tyt",
+    "questionText": "I. olan \n II. en \n III. sevgi \n IV. güçtür \n V. dünyada \n VI. büyük \n\nYukarıdaki kelimelerle anlamlı ve kurallı bir cümle kurulursa sıralama nasıl olur?",
+    "options": [
+      "V - III - I - II - VI - IV",
+      "III - V - I - II - VI - IV",
+      "V - II - VI - III - I - IV",
+      "I - II - III - IV - V - VI",
+      "V - I - III - II - VI - IV"
+    ],
+    "correctAnswerIndex": 0,
+    "explanation": "Dünyada (V) sevgi (III) olan (I) en (II) büyük (VI) güçtür (IV).",
+    "metadata": {
+      "topic": "Cümle Oluşturma",
+      "subTopic": "Anlamlı Cümle Kurma",
+      "difficulty": "Orta"
+    }
+  }
+]

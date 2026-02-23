@@ -1,25 +1,112 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/drawing_path.dart';
+import '../../core/utils/shape_recognizer.dart';
 import 'drawing_state.dart';
 
 /// StateNotifier for managing drawing state with Riverpod
 class DrawingNotifier extends StateNotifier<DrawingState> {
-  DrawingNotifier() : super(const DrawingState());
+  static const _keyDrawings = 'saved_drawings';
+
+  Timer? _holdTimer;
+  bool _isShapeSnapped = false;
+  Offset? _lastTimerPoint; // Track the point where the timer was last reset
+
+  DrawingNotifier() : super(const DrawingState()) {
+    _loadPersistedDrawings();
+  }
+
+  /// Load persisted drawings from SharedPreferences on init
+  Future<void> _loadPersistedDrawings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString(_keyDrawings);
+    if (jsonString == null) return;
+
+    try {
+      final Map<String, dynamic> decoded = jsonDecode(jsonString);
+      final Map<String, List<DrawingPath>> loaded = {};
+      decoded.forEach((pageId, pathsJson) {
+        final List<dynamic> pathsList = pathsJson as List<dynamic>;
+        loaded[pageId] = pathsList
+            .map((p) => DrawingPath.fromJson(p as Map<String, dynamic>))
+            .toList();
+      });
+      state = state.copyWith(savedDrawings: loaded);
+    } catch (e) {
+      // Corrupted data — ignore and start fresh
+    }
+  }
+
+  /// Persist all saved drawings to SharedPreferences
+  Future<void> _persistDrawings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final Map<String, dynamic> serialized = {};
+    state.savedDrawings.forEach((pageId, paths) {
+      serialized[pageId] = paths.map((p) => p.toJson()).toList();
+    });
+    await prefs.setString(_keyDrawings, jsonEncode(serialized));
+  }
 
   /// Start a new stroke at the given position
   void startStroke(Offset position) {
+    _holdTimer?.cancel();
+    _isShapeSnapped = false;
+    _lastTimerPoint = position;
     state = state.copyWith(currentPathPoints: [position]);
+
+    // Start initial timer
+    if (state.selectedTool == DrawingTool.pen) {
+      _holdTimer = Timer(const Duration(milliseconds: 600), _checkAndSnapShape);
+    }
   }
 
   /// Add a point to the current stroke
   void updateStroke(Offset position) {
+    if (_isShapeSnapped) return; // Wait until pen is lifted once snapped
+
     final updatedPoints = [...state.currentPathPoints, position];
     state = state.copyWith(currentPathPoints: updatedPoints);
+
+    if (state.selectedTool == DrawingTool.pen) {
+      // Only reset the timer if the movement is significant (human jitter tolerance)
+      if (_lastTimerPoint != null) {
+        final distance = (position - _lastTimerPoint!).distance;
+        if (distance > 3.0) {
+          // 3 logical pixels of tolerance
+          _holdTimer?.cancel();
+          _lastTimerPoint = position;
+          _holdTimer = Timer(
+            const Duration(milliseconds: 600),
+            _checkAndSnapShape,
+          );
+        }
+      } else {
+        _lastTimerPoint = position;
+      }
+    }
+  }
+
+  void _checkAndSnapShape() {
+    if (state.currentPathPoints.length < 10) return;
+
+    final snappedPoints = ShapeRecognizer.recognizeShape(
+      state.currentPathPoints,
+    );
+    if (snappedPoints != null) {
+      HapticFeedback.lightImpact();
+      _isShapeSnapped = true;
+      state = state.copyWith(currentPathPoints: snappedPoints);
+    }
   }
 
   /// Finalize the current stroke and add to paths
   void endStroke() {
+    _holdTimer?.cancel();
+    _lastTimerPoint = null;
     if (state.currentPathPoints.isEmpty) return;
 
     final newPath = DrawingPath(
@@ -91,7 +178,7 @@ class DrawingNotifier extends StateNotifier<DrawingState> {
     state = state.copyWith(isCanvasLightMode: !state.isCanvasLightMode);
   }
 
-  /// Save current paths for a specific page ID
+  /// Save current paths for a specific page ID (in-memory + disk)
   void savePage(String pageId) {
     if (pageId.isEmpty) return;
 
@@ -100,6 +187,7 @@ class DrawingNotifier extends StateNotifier<DrawingState> {
     newSaved[pageId] = List.from(state.paths);
 
     state = state.copyWith(savedDrawings: newSaved);
+    _persistDrawings(); // Write to disk
   }
 
   /// Load paths for a specific page ID

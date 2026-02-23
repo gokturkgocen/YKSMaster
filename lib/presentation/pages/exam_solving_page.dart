@@ -22,6 +22,7 @@ class ExamSolvingPage extends ConsumerStatefulWidget {
   final String subject;
   final String? statsKey; // New optional key for differentiated stats
   final List<ExamQuestion> questions;
+  final int initialIndex;
 
   const ExamSolvingPage({
     super.key,
@@ -29,6 +30,7 @@ class ExamSolvingPage extends ConsumerStatefulWidget {
     required this.subject,
     this.statsKey,
     required this.questions,
+    this.initialIndex = 0,
   });
 
   @override
@@ -36,7 +38,7 @@ class ExamSolvingPage extends ConsumerStatefulWidget {
 }
 
 class _ExamSolvingPageState extends ConsumerState<ExamSolvingPage> {
-  int currentQuestionIndex = 0;
+  late int currentQuestionIndex;
   Timer? _timer;
   int _totalSeconds = 0;
   int _currentQuestionSeconds = 0;
@@ -44,10 +46,13 @@ class _ExamSolvingPageState extends ConsumerState<ExamSolvingPage> {
   @override
   void initState() {
     super.initState();
+    currentQuestionIndex = widget.initialIndex;
     // Load drawings for the first question
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.questions.isNotEmpty) {
-        ref.read(drawingProvider.notifier).loadPage(widget.questions[0].id);
+        ref
+            .read(drawingProvider.notifier)
+            .loadPage(widget.questions[currentQuestionIndex].id);
         _loadTimers();
         _startTimer();
       }
@@ -107,6 +112,155 @@ class _ExamSolvingPageState extends ConsumerState<ExamSolvingPage> {
     return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
   }
 
+  void _showQuestionGrid(
+    BuildContext context,
+    AppTheme theme,
+    dynamic examState,
+  ) {
+    // Calculate range: 10 before, 10 after, clamped to bounds
+    final total = widget.questions.length;
+    int start = (currentQuestionIndex - 10).clamp(0, total - 1);
+    int end = (currentQuestionIndex + 10).clamp(0, total);
+    // Ensure we always try to show ~20 items
+    if (end - start < 20 && end < total) {
+      end = (start + 20).clamp(0, total);
+    }
+    if (end - start < 20 && start > 0) {
+      start = (end - 20).clamp(0, total);
+    }
+
+    final gridQuestions = widget.questions.sublist(start, end);
+    final answers = examState.examAnswers[widget.exam.id] ?? {};
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          backgroundColor: theme.surface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Row(
+            children: [
+              Icon(Icons.apps_rounded, color: theme.accent, size: 22),
+              const SizedBox(width: 10),
+              Text(
+                'Soru Haritası',
+                style: TextStyle(
+                  color: theme.text,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          ),
+          content: SizedBox(
+            width: 360,
+            child: Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: gridQuestions.map((q) {
+                final qIndex = widget.questions.indexOf(q);
+                final isCurrent = qIndex == currentQuestionIndex;
+                final answer = answers[q.id];
+                final bool? isCorrect = answer != null
+                    ? q.correctAnswer == answer
+                    : null;
+
+                Color bgColor;
+                Color borderColor;
+                IconData? icon;
+                Color iconColor = Colors.white;
+
+                if (isCorrect == true) {
+                  bgColor = const Color(0xFF22C55E); // green
+                  borderColor = const Color(0xFF16A34A);
+                  icon = Icons.check_rounded;
+                } else if (isCorrect == false) {
+                  bgColor = const Color(0xFFEF4444); // red
+                  borderColor = const Color(0xFFDC2626);
+                  icon = Icons.close_rounded;
+                } else {
+                  bgColor = theme.background;
+                  borderColor = theme.divider;
+                  iconColor = theme.textSecondary;
+                  icon = null; // No icon for unanswered
+                }
+
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pop(dialogContext);
+                    // Save current drawing & timers
+                    final currentId = widget.questions[currentQuestionIndex].id;
+                    ref.read(drawingProvider.notifier).savePage(currentId);
+                    _saveTimers();
+
+                    setState(() {
+                      currentQuestionIndex = qIndex;
+                      _loadTimers();
+                    });
+
+                    final newId = widget.questions[currentQuestionIndex].id;
+                    ref.read(drawingProvider.notifier).loadPage(newId);
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: bgColor,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: isCurrent ? theme.accent : borderColor,
+                        width: isCurrent ? 3 : 1.5,
+                      ),
+                      boxShadow: isCurrent
+                          ? [
+                              BoxShadow(
+                                color: theme.accent.withValues(alpha: 0.3),
+                                blurRadius: 8,
+                                spreadRadius: 1,
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Center(
+                      child: icon != null
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(icon, size: 14, color: iconColor),
+                                Text(
+                                  '${qIndex + 1}',
+                                  style: TextStyle(
+                                    color: iconColor,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Text(
+                              '${qIndex + 1}',
+                              style: TextStyle(
+                                color: theme.text,
+                                fontSize: 14,
+                                fontWeight: isCurrent
+                                    ? FontWeight.bold
+                                    : FontWeight.w500,
+                              ),
+                            ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final drawingState = ref.watch(drawingProvider);
@@ -128,298 +282,306 @@ class _ExamSolvingPageState extends ConsumerState<ExamSolvingPage> {
       color: theme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Column(
-          children: [
-            // Back button bar
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: theme.surface,
-                    title: Text(
-                      'Sınavdan Çık?',
-                      style: TextStyle(color: theme.text),
-                    ),
-                    content: Text(
-                      'Sınavdan çıkmak istediğine emin misin? İlerlemen kaydedilecek.',
-                      style: TextStyle(color: theme.textSecondary),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context), // Stay
-                        child: Text(
-                          'Hayır',
-                          style: TextStyle(color: theme.textSecondary),
-                        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              // Back button bar
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      backgroundColor: theme.surface,
+                      title: Text(
+                        'Sınavdan Çık?',
+                        style: TextStyle(color: theme.text),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          // Save current drawing before leaving
-                          if (widget.questions.isNotEmpty) {
-                            ref
-                                .read(drawingProvider.notifier)
-                                .savePage(
-                                  widget.questions[currentQuestionIndex].id,
-                                );
-                          }
-                          Navigator.pop(context); // Close dialog
-                          Navigator.of(context).pop(); // Close page
-                        },
-                        child: Text(
-                          'Evet',
-                          style: TextStyle(
-                            color: theme.accent,
-                            fontWeight: FontWeight.bold,
+                      content: Text(
+                        'Sınavdan çıkmak istediğine emin misin? İlerlemen kaydedilecek.',
+                        style: TextStyle(color: theme.textSecondary),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context), // Stay
+                          child: Text(
+                            'Hayır',
+                            style: TextStyle(color: theme.textSecondary),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              behavior: HitTestBehavior.opaque,
-              child: AnimatedContainer(
-                duration: AppTheme.transitionDuration,
-                curve: AppTheme.transitionCurve,
-                height: 48,
-                color: theme.surface,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    // Changed mainAxisSize to default (max) to expand
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Icon(
-                        CupertinoIcons.chevron_back,
-                        color: theme.accent,
-                        size: 22,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      'Geri',
-                      style: TextStyle(
-                        color: theme.accent,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    // Timer Display
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: theme.accent.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: theme.accent.withValues(alpha: 0.2),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            CupertinoIcons.time,
-                            size: 14,
-                            color: theme.accent,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            _formatDuration(_totalSeconds),
+                        TextButton(
+                          onPressed: () {
+                            // Save current drawing before leaving
+                            if (widget.questions.isNotEmpty) {
+                              ref
+                                  .read(drawingProvider.notifier)
+                                  .savePage(
+                                    widget.questions[currentQuestionIndex].id,
+                                  );
+                            }
+                            Navigator.pop(context); // Close dialog
+                            Navigator.of(context).pop(); // Close page
+                          },
+                          child: Text(
+                            'Evet',
                             style: TextStyle(
                               color: theme.accent,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFeatures: const [
-                                FontFeature.tabularFigures(),
-                              ],
                             ),
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                behavior: HitTestBehavior.opaque,
+                child: AnimatedContainer(
+                  duration: AppTheme.transitionDuration,
+                  curve: AppTheme.transitionCurve,
+                  height: 48,
+                  color: theme.surface,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      // Changed mainAxisSize to default (max) to expand
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Icon(
+                          CupertinoIcons.chevron_back,
+                          color: theme.accent,
+                          size: 22,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Geri',
+                        style: TextStyle(
+                          color: theme.accent,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      // Timer Display
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.accent.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: theme.accent.withValues(alpha: 0.2),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              CupertinoIcons.time,
+                              size: 14,
+                              color: theme.accent,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              _formatDuration(_totalSeconds),
+                              style: TextStyle(
+                                color: theme.accent,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                fontFeatures: const [
+                                  FontFeature.tabularFigures(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Spacer(), // Balance the layout (roughly) or keep it right aligned?
+                      // Let's remove the second spacer to keep it center-right or just right aligned.
+                      // Actually, let's keep it right aligned before the empty space.
+                    ],
+                  ),
+                ),
+              ),
+
+              // Toolbar
+              DrawingToolbar(
+                selectedTool: drawingState.selectedTool,
+                onPenSelected: () {
+                  if (drawingState.selectedTool == DrawingTool.pen) {
+                    PenSettingsPopup.show(
+                      context: context,
+                      currentColor: drawingState.penColor,
+                      currentWidth: drawingState.penWidth,
+                      onColorChanged: drawingNotifier.changePenColor,
+                      onWidthChanged: drawingNotifier.changePenWidth,
+                    );
+                  } else {
+                    drawingNotifier.changeTool(DrawingTool.pen);
+                  }
+                },
+                onPointerSelected: () =>
+                    drawingNotifier.changeTool(DrawingTool.pointer),
+                onEraserSelected: () =>
+                    drawingNotifier.changeTool(DrawingTool.eraser),
+                onLassoSelected: () =>
+                    drawingNotifier.changeTool(DrawingTool.lasso),
+                onQuestionGrid: () =>
+                    _showQuestionGrid(context, theme, examState),
+                onUndo: drawingNotifier.undo,
+                canUndo: drawingState.canUndo,
+              ),
+
+              // Content Area with Stack
+              Expanded(
+                child: Stack(
+                  children: [
+                    // 1. Underlying Content (Questions)
+                    // Full width Question Panel
+                    Row(
+                      children: [
+                        // Question Panel - Takes full width or split?
+                        // User wants to mark anywhere.
+                        // Let's keep the split view visual but allow drawing over all of it.
+                        Expanded(
+                          flex: 1,
+                          child: _QuestionPanel(
+                            question: currentQuestion,
+                            questionNumber: currentQuestionIndex + 1,
+                            totalQuestions: widget.questions.length,
+                            selectedAnswer: selectedAnswer,
+                            onAnswerSelected: (answer) {
+                              // Check if already answered
+                              final oldAnswer = examNotifier.getAnswer(
+                                widget.exam.id,
+                                currentQuestion.id,
+                              );
+
+                              examNotifier.saveAnswer(
+                                widget.exam.id,
+                                currentQuestion.id,
+                                answer,
+                              );
+
+                              if (oldAnswer == null) {
+                                final userNotifier = ref.read(
+                                  userProfileProvider.notifier,
+                                );
+                                final isCorrect =
+                                    currentQuestion.correctAnswer == answer;
+
+                                // Use specific stats key if provided (e.g. TYT - Matematik)
+                                // otherwise fallback to question subject
+                                userNotifier.updateQuestionStat(
+                                  widget.statsKey ?? currentQuestion.subject,
+                                  isCorrect,
+                                  currentQuestion.id,
+                                );
+                              }
+                            },
+                            onPrevious: currentQuestionIndex > 0
+                                ? () {
+                                    // Save current page state
+                                    final currentId = widget
+                                        .questions[currentQuestionIndex]
+                                        .id;
+                                    ref
+                                        .read(drawingProvider.notifier)
+                                        .savePage(currentId);
+                                    _saveTimers(); // Save timers
+
+                                    setState(() {
+                                      currentQuestionIndex--;
+                                      _loadTimers(); // Load timers for new question
+                                    });
+
+                                    // Load new page state
+                                    final prevId = widget
+                                        .questions[currentQuestionIndex]
+                                        .id;
+                                    ref
+                                        .read(drawingProvider.notifier)
+                                        .loadPage(prevId);
+                                  }
+                                : null,
+                            onNext:
+                                currentQuestionIndex <
+                                    widget.questions.length - 1
+                                ? () {
+                                    // Save current page state
+                                    final currentId = widget
+                                        .questions[currentQuestionIndex]
+                                        .id;
+                                    ref
+                                        .read(drawingProvider.notifier)
+                                        .savePage(currentId);
+                                    _saveTimers(); // Save timers
+
+                                    setState(() {
+                                      currentQuestionIndex++;
+                                      _loadTimers(); // Load timers for new question
+                                    });
+
+                                    // Load new page state
+                                    final nextId = widget
+                                        .questions[currentQuestionIndex]
+                                        .id;
+                                    ref
+                                        .read(drawingProvider.notifier)
+                                        .loadPage(nextId);
+                                  }
+                                : null,
+                            theme: theme,
+                          ),
+                        ),
+
+                        // Divider
+                        Container(width: 1, color: theme.divider),
+
+                        // Right side blank or notes area?
+                        // Originally it was the canvas. Now the canvas is OVER everything.
+                        // So the right side can be just a background for notes.
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            color: drawingState.isCanvasLightMode
+                                ? AppTheme.lightCanvasBackground
+                                : AppTheme.darkCanvasBackground,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // 2. Overlay Drawing Canvas
+                    // Covers the entire area
+                    Positioned.fill(
+                      child: IgnorePointer(
+                        // Ignore touches if using Pointer tool, so buttons work
+                        ignoring:
+                            drawingState.selectedTool == DrawingTool.pointer,
+                        child: _buildDrawingCanvas(
+                          ref,
+                          drawingState,
+                          drawingNotifier,
+                          theme,
+                        ),
                       ),
                     ),
-                    const Spacer(), // Balance the layout (roughly) or keep it right aligned?
-                    // Let's remove the second spacer to keep it center-right or just right aligned.
-                    // Actually, let's keep it right aligned before the empty space.
+                    // Canvas mode toggle (moved here to be clickable)
+                    Positioned(
+                      top: 12,
+                      right: 12,
+                      child: _CanvasModeToggle(
+                        isLightMode: drawingState.isCanvasLightMode,
+                        onToggle: drawingNotifier.toggleCanvasLightMode,
+                        theme: theme,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-
-            // Toolbar
-            DrawingToolbar(
-              selectedTool: drawingState.selectedTool,
-              onPenSelected: () {
-                if (drawingState.selectedTool == DrawingTool.pen) {
-                  PenSettingsPopup.show(
-                    context: context,
-                    currentColor: drawingState.penColor,
-                    currentWidth: drawingState.penWidth,
-                    onColorChanged: drawingNotifier.changePenColor,
-                    onWidthChanged: drawingNotifier.changePenWidth,
-                  );
-                } else {
-                  drawingNotifier.changeTool(DrawingTool.pen);
-                }
-              },
-              onPointerSelected: () =>
-                  drawingNotifier.changeTool(DrawingTool.pointer),
-              onEraserSelected: () =>
-                  drawingNotifier.changeTool(DrawingTool.eraser),
-              onLassoSelected: () =>
-                  drawingNotifier.changeTool(DrawingTool.lasso),
-              onClearAll: drawingNotifier.clearAll,
-              onUndo: drawingNotifier.undo,
-              canUndo: drawingState.canUndo,
-            ),
-
-            // Content Area with Stack
-            Expanded(
-              child: Stack(
-                children: [
-                  // 1. Underlying Content (Questions)
-                  // Full width Question Panel
-                  Row(
-                    children: [
-                      // Question Panel - Takes full width or split?
-                      // User wants to mark anywhere.
-                      // Let's keep the split view visual but allow drawing over all of it.
-                      Expanded(
-                        flex: 1,
-                        child: _QuestionPanel(
-                          question: currentQuestion,
-                          questionNumber: currentQuestionIndex + 1,
-                          totalQuestions: widget.questions.length,
-                          selectedAnswer: selectedAnswer,
-                          onAnswerSelected: (answer) {
-                            // Check if already answered
-                            final oldAnswer = examNotifier.getAnswer(
-                              widget.exam.id,
-                              currentQuestion.id,
-                            );
-
-                            examNotifier.saveAnswer(
-                              widget.exam.id,
-                              currentQuestion.id,
-                              answer,
-                            );
-
-                            if (oldAnswer == null) {
-                              final userNotifier = ref.read(
-                                userProfileProvider.notifier,
-                              );
-                              final isCorrect =
-                                  currentQuestion.correctAnswer == answer;
-
-                              // Use specific stats key if provided (e.g. TYT - Matematik)
-                              // otherwise fallback to question subject
-                              userNotifier.updateQuestionStat(
-                                widget.statsKey ?? currentQuestion.subject,
-                                isCorrect,
-                                currentQuestion.id,
-                              );
-                            }
-                          },
-                          onPrevious: currentQuestionIndex > 0
-                              ? () {
-                                  // Save current page state
-                                  final currentId =
-                                      widget.questions[currentQuestionIndex].id;
-                                  ref
-                                      .read(drawingProvider.notifier)
-                                      .savePage(currentId);
-                                  _saveTimers(); // Save timers
-
-                                  setState(() {
-                                    currentQuestionIndex--;
-                                    _loadTimers(); // Load timers for new question
-                                  });
-
-                                  // Load new page state
-                                  final prevId =
-                                      widget.questions[currentQuestionIndex].id;
-                                  ref
-                                      .read(drawingProvider.notifier)
-                                      .loadPage(prevId);
-                                }
-                              : null,
-                          onNext:
-                              currentQuestionIndex < widget.questions.length - 1
-                              ? () {
-                                  // Save current page state
-                                  final currentId =
-                                      widget.questions[currentQuestionIndex].id;
-                                  ref
-                                      .read(drawingProvider.notifier)
-                                      .savePage(currentId);
-                                  _saveTimers(); // Save timers
-
-                                  setState(() {
-                                    currentQuestionIndex++;
-                                    _loadTimers(); // Load timers for new question
-                                  });
-
-                                  // Load new page state
-                                  final nextId =
-                                      widget.questions[currentQuestionIndex].id;
-                                  ref
-                                      .read(drawingProvider.notifier)
-                                      .loadPage(nextId);
-                                }
-                              : null,
-                          theme: theme,
-                        ),
-                      ),
-
-                      // Divider
-                      Container(width: 1, color: theme.divider),
-
-                      // Right side blank or notes area?
-                      // Originally it was the canvas. Now the canvas is OVER everything.
-                      // So the right side can be just a background for notes.
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: drawingState.isCanvasLightMode
-                              ? AppTheme.lightCanvasBackground
-                              : AppTheme.darkCanvasBackground,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // 2. Overlay Drawing Canvas
-                  // Covers the entire area
-                  Positioned.fill(
-                    child: IgnorePointer(
-                      // Ignore touches if using Pointer tool, so buttons work
-                      ignoring:
-                          drawingState.selectedTool == DrawingTool.pointer,
-                      child: _buildDrawingCanvas(
-                        ref,
-                        drawingState,
-                        drawingNotifier,
-                        theme,
-                      ),
-                    ),
-                  ),
-                  // Canvas mode toggle (moved here to be clickable)
-                  Positioned(
-                    top: 12,
-                    right: 12,
-                    child: _CanvasModeToggle(
-                      isLightMode: drawingState.isCanvasLightMode,
-                      onToggle: drawingNotifier.toggleCanvasLightMode,
-                      theme: theme,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -550,7 +712,7 @@ class _ExamSolvingPageState extends ConsumerState<ExamSolvingPage> {
 }
 
 /// Question panel widget
-class _QuestionPanel extends StatelessWidget {
+class _QuestionPanel extends ConsumerWidget {
   final ExamQuestion question;
   final int questionNumber;
   final int totalQuestions;
@@ -572,7 +734,7 @@ class _QuestionPanel extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AnimatedContainer(
       duration: AppTheme.transitionDuration,
       curve: AppTheme.transitionCurve,
@@ -596,23 +758,63 @@ class _QuestionPanel extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: theme.accent.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    question.subject,
-                    style: TextStyle(
-                      color: theme.accent,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                Row(
+                  children: [
+                    if (ref
+                        .watch(userProfileProvider)
+                        .solvedQuestionIds
+                        .contains(question.id))
+                      Container(
+                        margin: const EdgeInsets.only(right: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.green.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: Colors.green.withValues(alpha: 0.3),
+                          ),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              CupertinoIcons.checkmark_seal_fill,
+                              color: Colors.green,
+                              size: 12,
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              'Çözüldü',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.accent.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        question.subject,
+                        style: TextStyle(
+                          color: theme.accent,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),

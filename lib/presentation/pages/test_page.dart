@@ -94,50 +94,16 @@ class _TestPageState extends ConsumerState<TestPage> {
 
     try {
       final repo = ref.read(questionRepositoryProvider);
-      final questions = await repo.getQuestions(type, subjectName);
+      final questions = await repo.getQuestions(type, statsKey);
 
       final profile = ref.read(userProfileProvider);
       final solvedIds = profile.solvedQuestionIds;
       final theme = ref.read(themeProvider);
 
-      // Filter out already solved questions
-      final filteredQuestions = questions
-          .where((q) => !solvedIds.contains(q.id))
-          .toList();
-
       if (!mounted) return;
       Navigator.pop(context); // Close loading dialog
 
-      if (questions.isNotEmpty && filteredQuestions.isEmpty) {
-        // Fun message when all questions are solved
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: theme.accent,
-            content: Row(
-              children: [
-                const Icon(CupertinoIcons.rocket_fill, color: Colors.white),
-                const SizedBox(width: 12),
-                const Expanded(
-                  child: Text(
-                    'Yuh tüm sorularımızı çözdün! Hızına biz bile yetişemiyoruz 🚀🔥',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        );
-        return;
-      }
-
-      if (filteredQuestions.isEmpty) {
+      if (questions.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: const Color(0xFFEF4444), // Error red
@@ -154,12 +120,53 @@ class _TestPageState extends ConsumerState<TestPage> {
         return;
       }
 
-      // Generate a practice exam on the fly with filtered questions
+      // Calculate the first unsolved question index
+      int firstUnsolvedIndex = questions.indexWhere(
+        (q) => !solvedIds.contains(q.id),
+      );
+
+      // If all are solved, firstUnsolvedIndex would be -1.
+      // In that case, we can start at 0 but show the "All solved" message if desired.
+      // However, the user wants them to NOT be "pushed forward" if solved,
+      // but still accessible.
+
+      final bool allSolved = firstUnsolvedIndex == -1;
+      if (allSolved) {
+        firstUnsolvedIndex = 0; // Default to start if all solved
+
+        // Show the fun message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: theme.accent,
+            content: Row(
+              children: [
+                const Icon(CupertinoIcons.rocket_fill, color: Colors.white),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Yuh tüm sorularımızı çözdün! Geri giderek eski başarılarını tazeleyebilirsin 🚀🔥',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        );
+      }
+
+      // Generate a practice exam on the fly with ALL questions
       final practiceExam = MockExam(
         id: 'practice_${DateTime.now().millisecondsSinceEpoch}',
         name: '$subjectName Testi',
         date: DateTime.now(),
-        questions: filteredQuestions,
+        questions: questions,
       );
 
       Navigator.of(context).push(
@@ -169,6 +176,7 @@ class _TestPageState extends ConsumerState<TestPage> {
             subject: subjectName,
             statsKey: statsKey,
             questions: practiceExam.questions,
+            initialIndex: firstUnsolvedIndex,
           ),
         ),
       );

@@ -9,6 +9,8 @@
 A tablet-first YKS (Higher Education Institutions Exam) preparation app for
 iPad and Android tablets in landscape mode.
 
+![YKS Master tablet exam screen](./flutter_01.png)
+
 ## Overview
 
 YKS Master combines exam solving, a persistent scratchpad and mistake review

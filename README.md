@@ -1,4 +1,4 @@
-# YKS Master Tablet 🎓📱
+# YKS Master Tablet
 
 > [!IMPORTANT]
 > **LEGAL NOTICE & PRIVACY**
@@ -6,13 +6,17 @@
 > All rights reserved. Reproduction, distribution, modification, or usage of this source code for commercial or non-commercial purposes without explicit written permission from the author is **strictly prohibited**.
 > Certain sensitive configuration files (Firebase, API Keys) have been excluded for security reasons.
 
-A professional YKS (Higher Education Institutions Exam) preparation application designed specifically for iPad and Android Tablets (Landscape Mode).
+A tablet-first YKS (Higher Education Institutions Exam) preparation app for
+iPad and Android tablets in landscape mode.
 
-## 🚀 Overview
+## Overview
 
-YKS Master is a comprehensive exam solving and productivity suite for students. It features a custom drawing engine with smart shape recognition, persistent exam progress, and advanced analytic tools like the "Mistake Notebook".
+YKS Master combines exam solving, a persistent scratchpad and mistake review
+workflows. The main technical focus is the custom drawing layer: students can
+write over questions, keep scratch work between sessions, and use shape
+recognition for cleaner geometry diagrams.
 
-## ✨ Key Features
+## Key Features
 
 - **Smart Exam Engine**: Full-screen exam solving with integrated persistent scratchpad.
 - **Draw & Hold (Shape Snapping)**: Intelligent algorithm (Douglas-Peucker) that converts hand-drawn rough sketches into perfect geometric shapes.
@@ -20,7 +24,7 @@ YKS Master is a comprehensive exam solving and productivity suite for students. 
 - **Daily Analysis**: Intelligent notification system that reminds users of pending reviews.
 - **Landscape Optimization**: Custom UI layout designed strictly for tablet experiences.
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 - **Framework**: Flutter
 - **Architecture**: Clean Architecture (Data, Domain, Presentation layers)
@@ -29,7 +33,7 @@ YKS Master is a comprehensive exam solving and productivity suite for students. 
 - **Persistence**: SharedPreferences & Disk IO for stroke data
 - **Backend**: Firebase (Auth & Firestore) - *Disconnected in this demo version*
 
-## 📁 Repository Structure
+## Repository Structure
 
 - `lib/core`: Foundation, constants, and global utilities (including the Shape Recognizer).
 - `lib/data`: Repository implementations and data sources.
@@ -37,4 +41,5 @@ YKS Master is a comprehensive exam solving and productivity suite for students. 
 - `lib/presentation`: Custom widgets, Riverpod providers, and Tablet-optimized UI pages.
 
 ---
-Developed by **[Adınız Soyadınız]**. 🦾
+
+Developed by **Göktürk Göçen** — [github.com/gokturkgocen](https://github.com/gokturkgocen).
